@@ -109,10 +109,9 @@ public class MessagingReceiver extends BroadcastReceiver {
             BlockedConversationHelper.blockConversation(mPrefs, message.getThreadId());
             message.markSeen();
             BlockedConversationHelper.FutureBlockedConversationObservable.getInstance().futureBlockedConversationReceived();
-
-            // If we have notifications enabled and this conversation isn't blocked
-        } else if (conversationPrefs.getNotificationsEnabled() && !BlockedConversationHelper.getBlockedConversationIds(
-                PreferenceManager.getDefaultSharedPreferences(mContext)).contains(message.getThreadId())) {
+        }
+        // If we have notifications enabled and this conversation isn't blocked
+        if (conversationPrefs.getNotificationsEnabled() ) {
             Intent messageHandlerIntent = new Intent(mContext, NotificationService.class);
             messageHandlerIntent.putExtra(NotificationService.EXTRA_POPUP, true);
             messageHandlerIntent.putExtra(NotificationService.EXTRA_URI, mUri.toString());

@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 
 import com.moez.QKSMS.R;
 import com.moez.QKSMS.common.AnalyticsManager;
+import com.moez.QKSMS.common.BlockedConversationHelper;
 import com.moez.QKSMS.common.ConversationPrefsHelper;
 import com.moez.QKSMS.common.utils.PhoneNumberUtils;
 import com.moez.QKSMS.mmssms.Utils;
@@ -66,6 +67,8 @@ public class MessageListActivity extends QKSwipeBackActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        if (BlockedConversationHelper.isConversationBlocked(mPrefs,getThreadId()))
+            this.finish();
         isInForeground = false;
     }
 
